@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nes's Todo List</title>
+    <link rel="stylesheet" href="./stylesheet.css">
+</head>
+<body>
+    <header>
+        <a href="#">
+            <img src="./logo_white.svg" alt="Nes Valmo" height="32px">
+        </a>
+        <nav>
+            <ul>
+                <a href="#"><li>Settings</li></a>
+                <a href="#"><li>Tasks</li></a>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h3>Today's Tasks</h3>
+        <table>
+            <tr>
+                <th></th>
+                <th>Date</th>
+                <th>Task Title</th>
+                <th>Task Description</th>
+                <th>Task Status</th>
+            </tr>
+            <tr>
+                <td class="task_checkbox"><input type="checkbox"></td>
+                <td>Oct, 8th</td>
+                <td>Learn TypeScript</td>
+                <td>Try to build a todo app with TypeScript.</td>
+                <td>Pending</td>
+            </tr>
+        </table>
+        <button onclick="addTask()">+ Add Task</button>
+    </main>
+
+    <footer>
+        <span>2025 &#169; <a href="#" class="styled_link">Nes Valmo.</a></span>
+    </footer>
+</body>
+</html>
