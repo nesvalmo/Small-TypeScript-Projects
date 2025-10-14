@@ -8,6 +8,10 @@
     margin: 0;
 }
 
+input, textarea {
+    font-size: 1rem;
+}
+
 a {
     text-decoration: none;
 }
@@ -106,7 +110,7 @@ table td {
     margin: auto;
 }
 
-main button {
+.styled_button {
     cursor: pointer;
     display: inline-block;
     padding: 16px 24px;
@@ -119,10 +123,11 @@ main button {
     transition: all 150ms ease-in-out;
 }
 
-main button:hover {
+.styled_button:hover {
     background: #F8F8F8;
     color: #303030;
     border-radius: 32px;
+    border: 1px solid #303030;
 }
 
 footer {
@@ -142,4 +147,94 @@ footer {
 
 .styled_link:hover {
     opacity: 1;
+}
+
+.window_title {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 0 24px 0;
+    width: 100%;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(15, 15, 15, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.overlay .window {
+    background-color: #F8F8F8;
+    border-radius: 16px;
+    border: lightgrey 1px solid;
+    padding: 24px;
+    color: #303030;
+    min-width: 320px;
+    width: 25vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.close_button {
+    border-radius: 50%;
+    border: 1px solid #303030;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.styled_input {
+    width: 100%;
+    min-width: 272px;
+    max-width: 320px;
+    height: 48px;
+    border-radius: 20px;
+    border: 1px solid lightgrey;
+    box-shadow: 1px 1px 5px rgb(237, 237, 237);
+    padding: 4px 16px;
+    transition: all 150ms ease-in-out;
+    outline: 1px solid rgba(15, 15, 15, 0);
+    display: block;
+    margin: 4px;
+}
+
+.styled_input:focus, .styled_input:hover {
+    outline: 1px solid rgba(15, 15, 15, 0.2);
+}
+
+.styled_textarea {
+    width: 100%;
+    min-width: 272px;
+    max-width: 320px;
+    min-height: 80px;
+    border-radius: 20px;
+    border: 1px solid lightgrey;
+    box-shadow: 1px 1px 5px rgb(237, 237, 237);
+    padding: 16px 16px;
+    resize: vertical;
+    transition: all 150ms ease-in-out;
+    outline: 1px solid rgba(15, 15, 15, 0);
+    display: block;
+    margin: 4px;
+    color: #606060;
+}
+
+.styled_textarea:focus, .styled_textarea:hover {
+    outline: 1px solid rgba(15, 15, 15, 0.2);
+}
+
+#addTaskOverlay {
+    display: none;
 }

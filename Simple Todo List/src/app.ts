@@ -1,4 +1,8 @@
+// TYPE SECTION
+
 type stateType = "done" | "new" | "postponed";
+
+// CLASS SECTION
 
 class Task {
   taskDate: Date;
@@ -15,13 +19,33 @@ class Task {
   }
 }
 
+// GLOBAL VARIABLES SECTION
+
 let taskDatabase: Task[] = [];
+
+// FUNCTION SECTION
 
 function createTask(inputTitle: string, inputDescription: string): Task | undefined {
     const newTask = new Task(inputTitle, inputDescription, "new");
     taskDatabase.push(newTask);
     return taskDatabase[taskDatabase.length - 1];
 }
+
+function openOverlay(): void {
+  const overlayElement = document.getElementById("addTaskOverlay");
+  if (overlayElement) {
+    overlayElement.style.display = "flex";
+  }
+}
+
+function closeOverlay(): void {
+  const overlayElement = document.getElementById("addTaskOverlay");
+  if (overlayElement) {
+    overlayElement.style.display = "none";
+  }
+}
+
+// APPLICATION
 
 let temp = createTask("Attend class", "You have programming class at 8:00 tomorrow.");
 
