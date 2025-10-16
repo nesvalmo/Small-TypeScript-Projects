@@ -11,6 +11,7 @@
     --opaline-light: #FFD3CC;
     --text-color: #0F0604;
     --faded-text: #B8B8BA;
+    --overlay-background: rgba(36, 36, 36, 0.35);
 }
 
 /* Default stuff for the page */
@@ -31,14 +32,197 @@ a {
 }
 
 ::selection {
-    background-color: rgba(15, 15, 15, 0.6);
-    color: #F8F8F8;
+    background-color: var(--text-color);
+    color: var(--background);
 }
 
 /* Actual styling */
 body {
     background-color: var(--background);
-    color: #F8F8F8;
+    color: var(--text-color);
     font-family: "Ubuntu", sans-serif;
+    font-weight: 400;
 }
 
+.split {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: row;
+}
+
+/* Header Styling */
+
+header {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+header h1 {
+    font-size: 72px;
+    font-weight: normal;
+    color: var(--opaline-orange);
+    user-select: none;
+}
+
+header p {
+    font-size: 16px;
+    text-align: center;
+    margin-top: 16px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Main Styling */
+
+main {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0 12.5vw;
+    max-width: 50vw;
+}
+
+.task_container {
+    border-radius: 16px;
+    max-height: 600px;
+    height: 100%;
+    width: 100%;
+    background-color: var(--background-darker);
+    border: 1px solid var(--border-color);
+    scroll-behavior: smooth;
+}
+
+.task {
+    padding: 16px;
+    width: 100%;
+    display: flex;
+    border-bottom: 1px solid var(--border-color);
+    background-color: var(--background);
+    align-items: center;
+}
+
+.task:first-child {
+    border-radius: 16px 16px 0 0;
+}
+
+.task:last-child {
+    border-radius: 0 0 16px 16px;
+}
+
+.complete_button {
+    width: 16px;
+    height: 16px;
+    background-color: var(--opaline-light);
+    border: 2px solid var(--opaline-dark);
+    border-radius: 50%;
+    cursor: pointer;
+    margin-right: 16px;
+    flex-shrink: 0;
+}
+
+.task_due {
+    flex-shrink: 0;
+}
+
+.task_title {
+    flex-grow: 1;
+}
+
+#previousTasks {
+    border: none;
+    background-color: rgba(0,0,0,0);
+    cursor: pointer;
+    font-size: 16px;
+    padding: 16px;
+    margin-left: auto;
+}
+
+.link_cta {
+    color: var(--opaline-orange);
+    transition: all 150ms ease-in-out;
+    cursor: pointer;
+}
+
+.link_cta:hover {
+    color: var(--opaline-dark);
+}
+
+#table_info {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 8px;
+}
+
+/* Overlay */
+
+.overlay {
+    position: absolute;
+    background-color: var(--overlay-background);
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.window {
+    background-color: var(--background);
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    padding: 32px;
+}
+
+.window h3 {
+    margin-bottom: 24px;
+}
+
+.window form input {
+    height: 48px;
+    border-radius: 24px;
+    padding: 16px;
+    border: 1px solid var(--border-color);
+    background-color: var(--background-darker);
+    margin-bottom: 8px;
+    margin-left: 8px;
+    transition: all 150ms ease-in-out;
+}
+
+.window form input:focus {
+    background-color: var(--background);
+}
+
+.window form input:focus {
+    outline: none;
+}
+
+.window button {
+    height: 48px;
+    border: none;
+    cursor: pointer;
+    background-color: var(--opaline-orange);
+    border-radius: 24px;
+    width: 104px;
+    color: var(--background);
+    font-weight: bold;
+    float: right;
+    margin-left: 8px;
+    font-size: 16px;
+}
+
+#cancelAddTask {
+    background-color: var(--faded-text);
+}
+
+.close {
+    display: none;
+}

@@ -7,6 +7,56 @@
     <link rel="stylesheet" href="./stylesheet.css">
 </head>
 <body>
+    <div class="split">
+        <header>
+            <h1>
+                Opaline
+            </h1>
+            <p>
+                A simple open source  to-do list, by <span class="link_cta"><a href="https://github.com/nesvalmo">nesvalmo</a></span><br />
+                Made with TypeScript, and passion<br /><br />
+
+                <span class="link_cta" id="addTaskButton">Press ‘A’ to get started.</span>
+            </p>
+        </header>
+        <main>
+            <div id="table_info">
+                <span style="margin-left: 48px;">Task Title</span>
+                <span style="margin-right: 16px; text-align: center; display: inline-block; width: 96px">Due Date</span>
+            </div>
+            <div class="task_container">
+                <div class="task" id="task_0">
+                    <div class="complete_button"></div>
+                    <div class="task_title"><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque doloribus totam incidunt non quis nobis dolores distinctio asperiores odit ad.</p></div>
+                    <div class="task_due">Oct 16, 16:00</div>
+                </div>
+                <div class="task" id="task_1">
+                    <div class="complete_button"></div>
+                    <div class="task_title"><p>Track your expenses</p></div>
+                    <div class="task_due">Oct 16, 18:00</div>
+                </div>
+            </div>
+            <button id="previousTasks" class="link_cta">Previous Tasks</button>
+        </main>
+    </div>
+
+    <div class="overlay close" id="addTaskOverlay">
+        <div class="window">
+            <h3>Add Task</h3>
+            <form action="">
+                <div>
+                    <label for="taskTitle">Task title:</label>
+                    <input type="text" id="taskTitle" name="taskTitle" placeholder="Take out the trash" autocomplete="off">
+                </div>
+                <div>
+                    <label for="taskDue">Due date:</label>
+                    <input type="text" id="taskDue" name="taskDue" placeholder="Oct 16, 2025" autocomplete="off">
+                </div>
+                <button type="submit" id="addTask">Add</button>
+                <button id="cancelAddTask">Cancel</button>
+            </form>
+        </div>
+    </div>
     <script src="./dist/app.js"></script>
 </body>
 </html>

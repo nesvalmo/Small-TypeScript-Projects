@@ -1,41 +1,25 @@
 "use strict";
 // TYPE SECTION
-Object.defineProperty(exports, "__esModule", { value: true });
+// INTERFACE SECTION
 // CLASS SECTION
-class Task {
-    taskDate;
-    taskTitle;
-    taskDescription;
-    taskState;
-    constructor(inputTitle, inputDescription, inputState) {
-        this.taskTitle = inputTitle;
-        this.taskDescription = inputDescription;
-        this.taskState = inputState;
-        this.taskDate = new Date();
-        return this;
-    }
-}
 // GLOBAL VARIABLES SECTION
-let taskDatabase = [];
+const addTaskOverlay = document.getElementById('addTaskOverlay');
 // FUNCTION SECTION
-function createTask(inputTitle, inputDescription) {
-    const newTask = new Task(inputTitle, inputDescription, "new");
-    taskDatabase.push(newTask);
-    return taskDatabase[taskDatabase.length - 1];
+function closeOverlay(inputElement) {
+    inputElement.classList.add("close");
 }
-function openOverlay() {
-    const overlayElement = document.getElementById("addTaskOverlay");
-    if (overlayElement) {
-        overlayElement.style.display = "flex";
+function openOverlay(inputElement) {
+    inputElement.classList.remove("close");
+}
+document.addEventListener('keydown', (event) => {
+    if (event.key.toLowerCase() === 'a') {
+        openOverlay(addTaskOverlay);
     }
-}
-function closeOverlay() {
-    const overlayElement = document.getElementById("addTaskOverlay");
-    if (overlayElement) {
-        overlayElement.style.display = "none";
+});
+addTaskOverlay.addEventListener('click', (event) => {
+    if (event.target === addTaskOverlay) {
+        closeOverlay(addTaskOverlay);
     }
-}
-// APPLICATION
-let temp = createTask("Attend class", "You have programming class at 8:00 tomorrow.");
-console.log(`${temp?.taskTitle} | ${temp?.taskState}\n${temp?.taskDate}\n${temp?.taskDescription}`);
+});
+// IMMEDIATE APPLICATION
 //# sourceMappingURL=app.js.map
