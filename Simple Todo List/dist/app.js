@@ -130,7 +130,7 @@ function renderTasks() {
 }
 function renderPreviousTasks() {
     if (doneTasks.length === 0) {
-        previousTasksContainer.innerHTML = '<p class="no_tasks">You haven\'t completed<br />any tasks yet</p><img src="./media/resting.svg" alt="A guy resting near beach" id="noTaskImage">';
+        previousTasksContainer.innerHTML = '<p class="no_tasks">You haven\'t completed<br />any tasks yet</p><img src="./media/empty_history.svg" alt="A guy looking at a to-do list" id="noTaskImage">';
         return;
     }
     previousTasksContainer.innerHTML = '';
