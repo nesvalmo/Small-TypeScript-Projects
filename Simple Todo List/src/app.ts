@@ -9,6 +9,7 @@ interface Task {
     title: string;
     due: string;
     isComplete: boolean;
+    completionDate?: Date;
 }
 
 // CLASS SECTION
@@ -20,11 +21,17 @@ interface Task {
 const addTaskOverlay = document.getElementById('addTaskOverlay') as HTMLDivElement;
 const getStartedButton = document.getElementById('addTaskButton') as HTMLSpanElement;
 const addTaskButton = document.getElementById('addTaskSubmit') as HTMLButtonElement;
+const cancelTaskButton = document.getElementById('cancelAddTask') as HTMLButtonElement;
 const taskTitleInput = document.getElementById('taskTitle') as HTMLInputElement;
 const taskDueInput = document.getElementById('taskDue') as HTMLInputElement;
 const taskContainer = document.getElementById('taskContainer') as HTMLDivElement;
+const tableInfo = document.getElementById('table_info') as HTMLDivElement;
+const previousTasksOverlay = document.getElementById('previousTasksOverlay') as HTMLDivElement;
+const previousTasksButton = document.getElementById('previousTasksButton') as HTMLButtonElement;
+const previousTasksContainer = document.getElementById('previousTasksContainer') as HTMLDivElement;
 
 let tasks: Task[] = [];
+let doneTasks: Task[] = [];
 
 // FUNCTION SECTION
 
@@ -33,55 +40,137 @@ function closeOverlay(inputElement: HTMLElement): void {
     inputElement.classList.add("close");
 }
 
-function openOverlay(inputElement: HTMLElement): void {
+function openOverlay(inputElement: HTMLElement, focusElement?: HTMLElement): void {
     inputElement.classList.remove("close");
+    if (focusElement) {
+        // ensure focus happens after the overlay becomes visible
+        setTimeout(() => {
+            try {
+                (focusElement as HTMLInputElement).focus();
+            } catch {
+                focusElement.focus();
+            }
+        }, 0);
+    }
+}
+
+function hideElement(inputElement: HTMLElement): void {
+    inputElement.classList.add("hide");
+}
+
+function showElement(inputElement: HTMLElement): void {
+    inputElement.classList.remove("hide");
 }
 
 document.addEventListener('keydown', (event: KeyboardEvent) => {
-  if (event.key.toLowerCase() === 'a') {
-    openOverlay(addTaskOverlay);
+  if (event.key.toLowerCase() === 'a' && addTaskOverlay.classList.contains("close") && previousTasksOverlay.classList.contains("close")) {
+    openOverlay(addTaskOverlay, taskTitleInput);
   } else if (event.key === 'Escape' && !addTaskOverlay.classList.contains("close")) {
     closeOverlay(addTaskOverlay);
+  } else if (event.key === 'Escape' && !previousTasksOverlay.classList.contains("close")) {
+    closeOverlay(previousTasksOverlay);
   }
+});
+
+document.addEventListener('click', (event: MouseEvent) => {
+    if (event.target instanceof HTMLElement && event.target.classList.contains('complete_button')) {
+        const taskId = (event.target as HTMLElement).id.replace('complete_', '');
+        const targetTaskIndex = tasks.findIndex(task => task.id === taskId);
+        if (tasks[targetTaskIndex]) {
+            tasks[targetTaskIndex].isComplete = true;
+            tasks[targetTaskIndex].completionDate = new Date();
+            doneTasks.push(tasks[targetTaskIndex]);
+            tasks.splice(targetTaskIndex, 1);
+        }
+        event.target.parentElement?.classList.add('done_task');
+        renderPreviousTasks();
+        setTimeout(() => {
+            renderTasks();
+        }, 1000);
+    }
+});
+
+document.addEventListener('click', (event: MouseEvent) => {
+    if (event.target instanceof HTMLElement && event.target.classList.contains('restore_button')) {
+        const taskId = (event.target as HTMLElement).id.replace('restore_', '');
+        const targetTaskIndex = doneTasks.findIndex(task => task.id === taskId);
+        if (doneTasks[targetTaskIndex]) {
+            doneTasks[targetTaskIndex].isComplete = false;
+            tasks.push(doneTasks[targetTaskIndex]);
+            doneTasks.splice(targetTaskIndex, 1);
+        }
+        renderTasks();
+        renderPreviousTasks();
+    }
 });
 
 addTaskOverlay.addEventListener('click', (event) => {
     if (event.target === addTaskOverlay) {
         closeOverlay(addTaskOverlay);
+    } else if (event.target === cancelTaskButton) {
+        closeOverlay(addTaskOverlay);
+    }
+});
+
+previousTasksOverlay.addEventListener('click', (event) => {
+    if (event.target === previousTasksOverlay) {
+        closeOverlay(previousTasksOverlay);
     }
 });
 
 getStartedButton.addEventListener('click', (event) => {
-    openOverlay(addTaskOverlay);
+    openOverlay(addTaskOverlay, taskTitleInput);
+});
+
+previousTasksButton.addEventListener('click', (event) => {
+    openOverlay(previousTasksOverlay);
 });
 
 addTaskButton.addEventListener('click', handleAddTask);
 
 // TASK FUNCTIONS
 function renderTasks(): void {
-    if (tasks.length === 0) {
-        if (taskContainer === null) {
-            console.log("Task container not found.");
-            return;
-        }
-        taskContainer.innerHTML = '<p class="no-tasks">No tasks here yet,<br />press ‘A’ to get started,<br />or rest...</p><img src="./media/resting.svg" alt="A guy resting near beach">';
+    if (tasks.length === 0 && doneTasks.length === 0) {
+        hideElement(tableInfo);
+        taskContainer.innerHTML = '<p class="no_tasks">No tasks here yet,<br />press ‘A’ to get started,<br />or rest...</p><img src="./media/resting.svg" alt="A guy resting near beach" id="noTaskImage">';
+        return;
+    } else if (tasks.length === 0) {
+        hideElement(tableInfo);
+        taskContainer.innerHTML = '<p class="no_tasks">Hooray!<br />All tasks completed!<br />Take a break or add more tasks.</p><img src="./media/resting.svg" alt="A guy resting near beach" id="noTaskImage">';
         return;
     }
-    if (taskContainer === null) {
-        console.log("Task container not found.");
-        return;
-    }
+    showElement(tableInfo);
     taskContainer.innerHTML = '';
     tasks.forEach((task) => {
         const taskElement = document.createElement('div');
         taskElement.className = 'task';
         taskElement.id = `task_${task.id}`;
         taskElement.innerHTML = `
-            <div class="complete_button"></div>
+            <div class="complete_button" id="complete_${task.id}"></div>
             <div class="task_title"><p>${task.title}</p></div>
             <div class="task_due"><p>${task.due}</p></div>
         `;
         taskContainer.appendChild(taskElement);
+    });
+}
+
+function renderPreviousTasks(): void {
+    if (doneTasks.length === 0) {
+        previousTasksContainer.innerHTML = '<p class="no_tasks">You haven\'t completed<br />any tasks yet</p><img src="./media/resting.svg" alt="A guy resting near beach" id="noTaskImage">';
+        return;
+    }
+    previousTasksContainer.innerHTML = '';
+    doneTasks.forEach((task) => {
+        const taskElement = document.createElement('div');
+        taskElement.className = 'task';
+        taskElement.id = `task_${task.id}`;
+        taskElement.innerHTML = `
+            <div class="restore_button" id="restore_${task.id}"></div>
+            <div class="task_title"><p>${task.title}</p></div>
+            <div class="task_due"><p>${task.due}</p></div>
+            <div class="task_completed"><p>${task.completionDate ? task.completionDate.toLocaleDateString() : ''}</p></div>
+        `;
+        previousTasksContainer.appendChild(taskElement);
     });
 }
 
@@ -121,3 +210,4 @@ function handleAddTask(event: Event): void {
 // IMMEDIATE APPLICATION
 
 renderTasks();
+renderPreviousTasks();
