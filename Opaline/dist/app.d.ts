@@ -3,7 +3,7 @@ interface Task {
     title: string;
     due: string;
     isComplete: boolean;
-    completionDate?: Date;
+    completionDate?: string;
 }
 declare const addTaskOverlay: HTMLDivElement;
 declare const getStartedButton: HTMLSpanElement;
@@ -18,6 +18,9 @@ declare const previousTasksButton: HTMLButtonElement;
 declare const previousTasksContainer: HTMLDivElement;
 declare let tasks: Task[];
 declare let doneTasks: Task[];
+declare function saveTasks(): void;
+declare function loadTasks(): Task[];
+declare function loadCompletedTasks(): Task[];
 declare function closeOverlay(inputElement: HTMLElement): void;
 declare function openOverlay(inputElement: HTMLElement, focusElement?: HTMLElement): void;
 declare function hideElement(inputElement: HTMLElement): void;
