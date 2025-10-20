@@ -13,9 +13,44 @@ const tableInfo = document.getElementById('table_info');
 const previousTasksOverlay = document.getElementById('previousTasksOverlay');
 const previousTasksButton = document.getElementById('previousTasksButton');
 const previousTasksContainer = document.getElementById('previousTasksContainer');
-let tasks = [];
-let doneTasks = [];
+let tasks = loadTasks();
+let doneTasks = loadCompletedTasks();
 // FUNCTION SECTION
+// DATA PERSISTENCE FUNCTIONS
+function saveTasks() {
+    let tasksJSON = JSON.stringify(doneTasks);
+    localStorage.setItem('completeTasks', tasksJSON);
+    console.log("Completed tasks saved!");
+    tasksJSON = JSON.stringify(tasks);
+    localStorage.setItem('incompleteTasks', tasksJSON);
+    console.log("Pending tasks saved!");
+}
+function loadTasks() {
+    const tasksJSON = localStorage.getItem('incompleteTasks');
+    if (tasksJSON == null) {
+        return [];
+    }
+    try {
+        return JSON.parse(tasksJSON);
+    }
+    catch (_a) {
+        console.error("Error parsing tasks from localStorage.");
+        return [];
+    }
+}
+function loadCompletedTasks() {
+    const tasksJSON = localStorage.getItem('completeTasks');
+    if (tasksJSON == null) {
+        return [];
+    }
+    try {
+        return JSON.parse(tasksJSON);
+    }
+    catch (_a) {
+        console.error("Error parsing completed tasks from localStorage.");
+        return [];
+    }
+}
 // OVERLAY FUNCTIONS
 function closeOverlay(inputElement) {
     inputElement.classList.add("close");
@@ -58,12 +93,13 @@ document.addEventListener('click', (event) => {
         const targetTaskIndex = tasks.findIndex(task => task.id === taskId);
         if (tasks[targetTaskIndex]) {
             tasks[targetTaskIndex].isComplete = true;
-            tasks[targetTaskIndex].completionDate = new Date();
+            tasks[targetTaskIndex].completionDate = new Date().toLocaleDateString();
             doneTasks.push(tasks[targetTaskIndex]);
             tasks.splice(targetTaskIndex, 1);
         }
         (_a = event.target.parentElement) === null || _a === void 0 ? void 0 : _a.classList.add('done_task');
         renderPreviousTasks();
+        saveTasks();
         setTimeout(() => {
             renderTasks();
         }, 1000);
@@ -80,6 +116,7 @@ document.addEventListener('click', (event) => {
         }
         renderTasks();
         renderPreviousTasks();
+        saveTasks();
     }
 });
 addTaskOverlay.addEventListener('click', (event) => {
@@ -142,7 +179,7 @@ function renderPreviousTasks() {
             <div class="restore_button" id="restore_${task.id}"></div>
             <div class="task_title"><p>${task.title}</p></div>
             <div class="task_due"><p>${task.due}</p></div>
-            <div class="task_completed"><p>${task.completionDate ? task.completionDate.toLocaleDateString() : ''}</p></div>
+            <div class="task_completed"><p>${task.completionDate ? task.completionDate : ''}</p></div>
         `;
         previousTasksContainer.appendChild(taskElement);
     });
@@ -172,6 +209,7 @@ function handleAddTask(event) {
     taskTitleInput.value = '';
     taskDueInput.value = '';
     closeOverlay(addTaskOverlay);
+    saveTasks();
 }
 // IMMEDIATE APPLICATION
 renderTasks();
