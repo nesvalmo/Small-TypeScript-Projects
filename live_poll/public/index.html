@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Live Poll</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main>
+        <div class="half">
+            <header>
+                <h1>Simple Live Poll</h1>
+                <p>
+                    A simple open-source live poll software by <a href="github.com/nesvalmo" target="_blank">nesvalmo</a><br />
+                    Made with TypeScript and passion<br /><br />
+
+                    Goal of this project is to learn about HTTP servers<br />
+                    and live data sharing using websockets<br /><br />
+
+                    <span id="getStarted">Press ‘A’ to get started</span>
+                </p>
+            </header>
+        </div>
+        <div class="half">
+            <div class="container" id="pollContainer">
+                <h2>Ongoing Polls</h2>
+                <p id="noPollsMessage">There are no polls going on at this moment.</p>
+                <div class="poll_box">
+                    <div class="poll_info">
+                        <p>Color of the office furniture?</p>
+                        <div class="poll_stats">
+                            <div class="poll_stat">
+                                <p class="option_title">Blue</p>
+                                <div class="progress_bar"><div style="width: 70%;" class="progress_fill"></div></div>
+                                <span class="option_votes">70%</span>
+                            </div>
+
+                            <div class="poll_stat">
+                                <p class="option_title">Green</p>
+                                <div class="progress_bar"><div style="width: 20%;" class="progress_fill"></div></div>
+                                <span class="option_votes">20%</span>
+                            </div>
+
+                            <div class="poll_stat">
+                                <p class="option_title">Grey</p>
+                                <div class="progress_bar"><div style="width: 10%;" class="progress_fill"></div></div>
+                                <span class="option_votes">10%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="poll_actions">
+                        <button type="button" id="share_1">Share</button>
+                        <div class="poll_controls">
+                            <button type="button" id="edit_1">Edit</button>
+                            <button type="button" id="end_1" class="red">End</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="poll_box">
+                    <div class="poll_info">
+                        <p>What should we order for dinner?</p>
+                        <div class="poll_stats">
+                            <div class="poll_stat">
+                                <span class="option_title">Pizza</span>
+                                <div class="progress_bar"><div style="width: 100%;" class="progress_fill"></div></div>
+                                <span class="option_votes">100%</span>
+                            </div>
+
+                            <div class="poll_stat">
+                                <span class="option_title">Burgers</span>
+                                <div class="progress_bar"><div style="width: 0%;" class="progress_fill"></div></div>
+                                <span class="option_votes">0%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="poll_actions">
+                        <button type="button" id="share_2">Share</button>
+                        <div class="poll_controls">
+                            <button type="button" id="edit_2">Edit</button>
+                            <button type="button" id="end_2" class="red">End</button>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="button" class="dark_green large" id="createPoll">Create Poll</button>
+            </div>
+
+            <button id="previousPollsButton">Previous Polls</button>
+        </div>
+    </main>
+
+    <div class="overlay closed" id="previousPollsOverlay">
+        <div class="container" id="previousPollsContainer">
+            <h2>Previous Polls</h2>
+            <div id="previousPollsList">
+                <div class="poll_box">
+                    <div class="poll_info">
+                        <p>What's your favorite color?</p>
+                        <div class="poll_stats">
+                            <div class="poll_stat">
+                                <span class="option_title">Green</span>
+                                <div class="progress_bar"></div>
+                                <span class="option_votes">100%</span>
+                            </div>
+
+                            <div class="poll_stat">
+                                <span class="option_title">Blue</span>
+                                <div class="progress_bar"></div>
+                                <span class="option_votes">0%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="poll_actions">
+                        <button type="button" id="share_3">Share</button>
+                        <div class="poll_controls">
+                            <button type="button" id="reopen_3">Reopen</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="overlay closed" id="addPollOverlay">
+        <div class="container">
+            <div class="poll_form">
+                <h2>Create New Poll</h2>
+                <label for="pollQuestion">Poll Question:</label>
+                <input type="text" id="pollQuestion" name="pollQuestion" />
+
+                <div id="optionsContainer">
+                    <div class="option_input">
+                        <label for="option_1">Option #1</label>
+                        <input type="text" class="optionField" name="option_1" id="option_1" />
+                    </div>
+                    <div class="option_input">
+                        <label for="option_2">Option #2</label>
+                        <input type="text" class="optionField" name="option_2" id="option_2" />
+                    </div>
+                    <div class="option_input">
+                        <label for="option_3">Option #3</label>
+                        <input type="text" class="optionField" name="option_3" id="option_3" />
+                        <button type="button" class="removeOptionButton">Remove</button>
+                    </div>
+                </div>
+                <button type="button" id="addOptionButton">Add Option</button>
+                <button type="button" id="createPollButton" style="float: right;">Create Poll</button>
+                <button type="button" id="cancelPollButton" style="float: right;">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/dist/createPoll.js"></script>
+</body>
+</html>

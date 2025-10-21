@@ -1,0 +1,237 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+
+*, *::after, *::before {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: inherit;
+    font-size: inherit;
+}
+
+a {
+    color: var(--link-col);
+    text-decoration: none;
+}
+
+:root {
+    font-size: 16px;
+    --background-col: #F8FCF2;
+    --green-100: #F8FCF2;
+    --green-200: #E0F3C9;
+    --green-300: #C8EA9F;
+    --green-400: #B0E075;
+    --placeholder: #94AD76;
+    --text-col: #1B2A09;
+    --red-200: #EAA89F;
+    --red-300: #E08275;
+    --link-col: #517D1C;
+    --selection-col: rgba(27, 42, 9, 0.65);
+}
+
+::selection {
+    background-color: var(--selection-col);
+    color: var(--background-col);
+}
+
+body {
+    background-color: var(--background-col);
+    color: var(--text-col);
+    font-family: 'Ubuntu', sans-serif;
+}
+
+/* Main */
+
+main {
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+}
+
+.half {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+}
+
+header {
+    text-align: center;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 8px;
+}
+
+#getStarted {
+    color: var(--link-col);
+    cursor: pointer;
+}
+
+/* Poll Container */
+
+.container {
+    padding: 1rem 1.5rem 0.5rem 1.5rem;
+    background-color: var(--green-200);
+    border-radius: 1.5rem;
+    border: 1px solid var(--green-300);
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 70%;
+    max-width: 560px;
+}
+
+.container h2 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+}
+
+#noPollsMessage {
+    font-style: italic;
+    background-color: var(--red-200);
+    border: 1px solid var(--red-300);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    color: var(--text-col);
+    width: 100%;
+    margin-bottom: 1rem;
+    display: none;
+}
+
+/* Poll Boxes */
+
+.poll_box {
+    background-color: var(--green-100);
+    border: 1px solid var(--green-300);
+    border-radius: 1rem;
+    width: 100%;
+    margin-bottom: 0.5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.poll_info {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+    border-bottom: 1px solid var(--green-300);
+    padding: 0.5rem 1.5rem;
+}
+
+.poll_stats {
+    flex-grow: 1;
+}
+
+.poll_stat {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+    justify-content: space-between;
+    margin: 0.5rem 1rem 0.5rem 0;
+}
+
+.option_title {
+    width: 15%;
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+
+.option_votes {
+    max-width: 5%;
+    flex-grow: 0;
+    flex-shrink: 0;
+    text-align: right;
+}
+
+.progress_bar {
+    border: 1px solid var(--green-300);
+    background-color: var(--background-col);
+    border-radius: 2px;
+    height: 4px;
+    flex-grow: 1;
+    flex-shrink: 1;
+    margin-left: 0.5rem;
+}
+
+.progress_fill {
+    background-color: var(--green-400);
+    height: 100%;
+}
+
+.poll_info p {
+    max-width: 30%;
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+
+.poll_actions {
+    padding: 0.5rem 1.5rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.poll_controls {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+}
+
+/* General */
+
+.closed {
+    display: none;
+}
+
+button {
+    cursor: pointer;
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 1rem;
+    height: 2.5rem;
+    border-radius: 1.25rem;
+    padding: 0 1.25rem;
+    border: 1px solid var(--green-300);
+    background-color: var(--green-200);
+    transition: background-color 150ms ease-in-out;
+}
+
+button:hover {
+    background-color: var(--green-300);
+}
+
+/* Specifics */
+
+.red {
+    background-color: var(--red-200);
+    border: 1px solid var(--red-300);
+}
+
+.red:hover {
+    background-color: var(--red-300);
+}
+
+.dark_green {
+    background-color: var(--green-300);
+    border: 1px solid var(--green-400);
+}
+
+.dark_green:hover {
+    background-color: var(--green-400);
+}
+
+.large {
+    height: 3rem;
+    border-radius: 1.5rem;
+    padding: 0 1.5rem;
+}
+
+#previousPollsButton {
+    background-color: rgba(0,0,0,0);
+    border: none;
+    margin-left: auto;
+    color: var(--link-col);
+}

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Live Poll</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main>
+        <div class="half">
+            <header>
+                <h1>Simple Live Poll</h1>
+                <p>
+                    A simple open-source live poll software by <a href="github.com/nesvalmo" target="_blank">nesvalmo</a><br />
+                    Made with TypeScript and passion
+                </p>
+            </header>
+        </div>
+        <div class="half">
+            <div class="container" id="pollContainer">
+                <h2>Color of the office furniture?</h2>
+                <div class="poll_box">
+                    <div class="poll_info">
+                        <div class="poll_stats">
+                            <div class="poll_stat">
+                                <span class="option_title chosen_option">Blue</span>
+                                <div class="progress_bar"></div>
+                                <span class="option_votes">70%</span>
+                            </div>
+
+                            <div class="poll_stat">
+                                <span class="option_title">Green</span>
+                                <div class="progress_bar"></div>
+                                <span class="option_votes">20%</span>
+                            </div>
+
+                            <div class="poll_stat">
+                                <span class="option_title">Grey</span>
+                                <div class="progress_bar"></div>
+                                <span class="option_votes">10%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="poll_actions">
+                        <button type="button" id="share_1">Share</button>
+                    </div>
+                </div>
+
+                <button type="button" id="createPoll">Create Poll</button>
+            </div>
+
+            <a href="/" id="redirect_main">Create Poll</a>
+        </div>
+    </main>
+
+    <script src="/dist/viewPoll.js"></script>
+</body>
+</html>
